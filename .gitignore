@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+neo4j-runtime/data/*
+neo4j-runtime/import/*
+neo4j-runtime/logs/*
