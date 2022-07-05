@@ -10,7 +10,21 @@ log_info() {
 CONTAINER_ALREADY_STARTED="CONTAINER_ALREADY_STARTED_PLACEHOLDER"
 if [ ! -e flag/$CONTAINER_ALREADY_STARTED ]; then
   touch flag/$CONTAINER_ALREADY_STARTED
-  
+
+  sleep 30
+  counter=1
+  max_retry=5
+  cypher-shell -a bolt://${NEO4J_HOSTNAME}:${NEO4J_BOLT_PORT} -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --fail-fast --format plain "MATCH (n) RETURN count(n) AS count LIMIT 1" > /dev/null 2>&1
+  result=$?
+  while [ $result -ne 0 ] && [ $counter -le $max_retry ]
+  do
+    # echo "Welcome $counter times"
+    sleep 5
+    counter=$(( $counter + 1 ))
+    cypher-shell -a bolt://${NEO4J_HOSTNAME}:${NEO4J_BOLT_PORT} -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --fail-fast --format plain "MATCH (n) RETURN count(n) AS count LIMIT 1" > /dev/null 2>&1
+    result=$?
+  done
+
   log_info  "Wrapper: Loading cyphers from '/import'"
   for cipherFile in import/*.cql; do
       log_info "Running cypher ${cipherFile}"

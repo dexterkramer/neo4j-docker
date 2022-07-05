@@ -7,7 +7,6 @@ RUN apt-get update && \
     apt-get install dos2unix && \
     apt-get clean
 
-# WORKDIR /
 COPY wrapper.sh wrapper.sh
 RUN dos2unix wrapper.sh import/cypher_query.cql
 RUN mkdir flag && chown neo4j:neo4j /flag
