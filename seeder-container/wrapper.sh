@@ -8,8 +8,8 @@ log_info() {
 }
 
 CONTAINER_ALREADY_STARTED="CONTAINER_ALREADY_STARTED_PLACEHOLDER"
-if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
-  touch $CONTAINER_ALREADY_STARTED
+if [ ! -e flag/$CONTAINER_ALREADY_STARTED ]; then
+  touch flag/$CONTAINER_ALREADY_STARTED
   
   log_info  "Wrapper: Loading cyphers from '/import'"
   for cipherFile in import/*.cql; do
