@@ -15,10 +15,10 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
   for cipherFile in import/*.cql; do
       log_info "Running cypher ${cipherFile}"
       contents=$(cat ${cipherFile})
-      /bin/cypher-shell -a bolt://${NEO4J_HOSTNAME}:${NEO4J_BOLT_PORT} -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} "${contents}"
+      cypher-shell -a bolt://${NEO4J_HOSTNAME}:${NEO4J_BOLT_PORT} -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} "${contents}"
   done
   log_info  "Finished loading all cyphers from '/import'"
-  TOTAL_CHANGES=$(/bin/cypher-shell -a bolt://${NEO4J_HOSTNAME}:${NEO4J_BOLT_PORT} -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --format plain "MATCH (n) RETURN count(n) AS count")
+  TOTAL_CHANGES=$(cypher-shell -a bolt://${NEO4J_HOSTNAME}:${NEO4J_BOLT_PORT} -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --format plain "MATCH (n) RETURN count(n) AS count")
   log_info "Wrapper: Changes $(echo ${TOTAL_CHANGES} | sed -e 's/[\r\n]//g')"
 fi
 
