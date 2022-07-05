@@ -9,7 +9,7 @@ RUN  sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
 RUN  sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 WORKDIR /tmp
 
-RUN yum -y install yum-utils dos2unix wget
+RUN yum -y install yum-utils dos2unix
 
 COPY cypher-shell-4.4.6-1.noarch.rpm tmp/cypher-shell-4.4.6-1.noarch.rpm
 RUN yumdownloader --destdir=/var/blop/ --resolve tmp/cypher-shell-4.4.6-1.noarch.rpm
