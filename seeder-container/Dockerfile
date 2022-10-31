@@ -9,6 +9,7 @@ RUN apt-get update && \
 
 COPY wrapper.sh wrapper.sh
 RUN dos2unix wrapper.sh 
+RUN chown neo4j:neo4j ./wrapper.sh && chmod 777 ./wrapper.sh
 RUN mkdir flag && chown neo4j:neo4j /flag
 RUN mkdir import && chown neo4j:neo4j /import
 
